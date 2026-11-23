@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piket</title>
+
+
+<style>
+:root {
+  --primary: #1486e2;
+  --dark: #ffe600;
+  --bg: #ffffff;
+  --white: #fdf5f5;
+  --green: #00ff37;
+}
+
+
+{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: #023dff;
+}
+
+
+header {
+  background: var(--dark);
+  color: rgb(255, 0, 0);
+  padding: 22px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+
+.logo span {
+  color: #ffffff;
+}
+
+
+header p {
+  font-size: 13px;
+  margin-top: 5px;
+  color: #e1cbcb;
+}
+
+
+.container {
+  max-width: 1050px;
+  margin: 28px auto;
+  padding: 0 18px;
+}
+
+
+.welcome {
+  margin-bottom: 22px;
+}
+
+
+.welcome h1 {
+  font-size: 27px;
+  margin-bottom: 8px;
+}
+
+
+.welcome p {
+  color: #64748b;
+  line-height: 1.5;
+}
+
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 24px;
+}
+
+
+.stat, .panel {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 3px 12px #0f172a0b;
+}
+
+
+.stat p {
+  color: #000000;
+  font-size: 14px;
+}
+
+
+.stat h2 {
+  margin-top: 12px;
+  font-size: 28px;
+}
+
+
+.panel {
+  margin-bottom: 20px;
+}
+
+
+.panel h2 {
+  font-size: 19px;
+  margin-bottom: 15px;
+}
+
+
+.notice {
+  background: #fbff00;
+  border-left: 5px solid var(--primary);
+  border-radius: 8px;
+  padding: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+
+.task-list {
+  display: grid;
+  gap: 10px;
+}
+
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #00ccff;
+  border-radius: 10px;
+}
+
+
+.task input {
+  width: 19px;
+  height: 19px;
+  cursor: pointer;
+}
+
+
+.task label {
+  flex: 1;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+
+.task small {
+  display: block;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+
+.task.done {
+  background: #01ffea6c;
+}
+
+
+.task.done label {
+  text-decoration: line-through;
+  color: #ffffff;
+}
+
+
+button {
+  background: var(--primary);
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 11px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
+button:hover {
+  opacity: 0.88;
+}
+
+
+button.secondary {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+
+button.danger {
+  background: #ffa600;
+
+
+.actions {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 10px;
+  margin-top: 16px;
+}
+
+
+input[type="text"], input[type="time"],
+input[type="date"], select {
+  padding: 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  width: 100%;
+  margin-top: 7px;
+  font-size: 14px;
+}
+
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+}
+
+
+.field {
+  margin-bottom: 13px;
+}
+
+
+.field label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+.status {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+
+@media (max-width: 600px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .welcome h1 {
+    font-size: 23px;
+  }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<header>
+  <div>
+    <div class="logo">Piket<span>4U</span> 🧹</div>
+    <p>Pengingat piket kelas yang praktis</p>
+  </div>
+  <div id="clock">Memuat waktu...</div>
+</header>
+
+
+<main class="container">
+
+
+  <section class="welcome">
+    <h1>Hi Teddy! 👋</h1>
+    <p id="today"></p>
+    <p>Semangatlah piketnya kedepannya akan dimudahkan pekerjaannya</p>
+  </section>
+
+
+  <section class="stats">
+    <div class="stat">
+      <p>Total tugas</p>
+      <h2 id="total">5</h2>
+    </div>
+    <div class="stat">
+      <p>Tugas selesai</p>
+      <h2 id="completed">0</h2>
+    </div>
+    <div class="stat">
+      <p>Tugas tersisa</p>
+      <h2 id="remaining">5</h2>
+    </div>
+  </section>
+
+
+  <div class="notice">
+    <strong>🔔 Piket Hari Ini</strong>
+    <p id="reminderText">
+      Semangatlah untuk menjaga kelas tetap bersih dan nyaman!
+    </p>
+  </div>
+
+
+  <section class="panel">
+    <h2>✅ Tugas hari ini</h2>
+    <div id="taskList" class="task-list"></div>
+
+
+    <div class="actions">
+      <button onclick="resetTasks()" class="secondary">
+        Reset Checklist
+      </button>
+      <button onclick="notifyTeam()">
+        🔔 Kirim Pengingat
+      </button>
+    </div>
+
+
+    <p class="status" id="notifyStatus">
+      Aktifkan notifikasi untuk mencoba pengingat browser.
+    </p>
+  </section>
+
+
+  <section class="panel">
+    <h2>➕ Tambah Tugas Baru</h2>
+    <div class="form-grid">
+      <div class="field">
+        <label for="taskName">Nama tugas</label>
+        <input id="taskName" type="text"
+          placeholder="Contoh: Merapikan kursi">
+      </div>
+      <div class="field">
+        <label for="taskTime">Waktu tugas</label>
+        <input id="taskTime" type="time" value="06:45">
+      </div>
+    </div>
+    <button onclick="addTask()">Tambah Tugas</button>
+  </section>
+
+
+  <section class="panel">
+    <h2>⏰ Atur Pengingat</h2>
+
+
+    <div class="form-grid">
+      <div class="field">
+        <label for="reminderDate">Tanggal pengingat</label>
+        <input type="date" id="reminderDate">
+      </div>
+      <div class="field">
+        <label for="reminderTime">Jam pengingat</label>
+        <input type="time" id="reminderTime" value="06:45">
+      </div>
+    </div>
+
+
+    <div class="field">
+      <label for="reminderMessage">Pesan pengingat</label>
+      <input id="reminderMessage" type="text"
+        value="Jangan lupa tugas piket hari ini, ya!">
+    </div>
+
+
+    <div class="actions">
+      <button onclick="enableNotifications()">
+        Izinkan Notifikasi
+      </button>
+      <button onclick="setReminder()">Simpan Pengingat</button>
+      <button class="danger" onclick="cancelReminder()">
+        Batalkan
+      </button>
+    </div>
+
+
+    <p id="scheduleStatus" class="status">
+      Belum ada pengingat terjadwal.
+    </p>
+  </section>
+
+
+</main>
+
+
+<footer>
+  Piket4U © 2026 — Kelas bersih, belajar nyaman!
+</footer>
+
+
+<script>
+const defaultTasks = [
+  { name: "Membersihkan papan tulis", time: "06:45" },
+  { name: "Menyapu lantai kelas", time: "06:45" },
+  { name: "Membuang sampah", time: "06:50" },
+  { name: "Merapikan meja dan kursi", time: "06:50" },
+  { name: "Membersihkan area depan kelas", time: "06:55" }
+];
+
+
+const todayKey = () => {
+  const d = new Date();
+  return d.getFullYear() + "-" +
+    String(d.getMonth() + 1).padStart(2, "0") + "-" +
+    String(d.getDate()).padStart(2, "0");
+};
+
+
+let tasks = JSON.parse(localStorage.getItem("piketTasks")) || defaultTasks;
+let checks = JSON.parse(localStorage.getItem("piketChecks")) || {};
+let reminder = JSON.parse(localStorage.getItem("piketReminder")) || null;
+let lastAlert = "";
+
+
+function saveTasks() {
+  localStorage.setItem("piketTasks", JSON.stringify(tasks));
+}
+
+
+function saveChecks() {
+  localStorage.setItem("piketChecks", JSON.stringify(checks));
+}
+
+
+function renderTasks() {
+  const list = document.getElementById("taskList");
+  list.innerHTML = "";
+
+
+  tasks.forEach((task, index) => {
+    const key = todayKey() + "-" + index;
+    const done = checks[key] === true;
+
+
+    const item = document.createElement("div");
+    item.className = "task" + (done ? " done" : "");
+
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.id = "task-" + index;
+    checkbox.checked = done;
+    checkbox.addEventListener("change", () => {
+      checks[key] = checkbox.checked;
+      saveChecks();
+      renderTasks();
+    });
+
+
+    const label = document.createElement("label");
+    label.htmlFor = checkbox.id;
+
+
+    const title = document.createElement("span");
+    title.textContent = task.name;
+
+
+    const time = document.createElement("small");
+    time.textContent = "Waktu: " + task.time;
+
+
+    label.append(title, time);
+    item.append(checkbox, label);
+
+
+    list.appendChild(item);
+  });
+
+
+  const doneCount = tasks.filter(
+    (_, i) => checks[todayKey() + "-" + i] === true
+  ).length;
+
+
+  document.getElementById("total").textContent = tasks.length;
+  document.getElementById("completed").textContent = doneCount;
+  document.getElementById("remaining").textContent =
+    tasks.length - doneCount;
+}
+
+
+function addTask() {
+  const nameInput = document.getElementById("taskName");
+  const timeInput = document.getElementById("taskTime");
+  const name = nameInput.value.trim();
+
+
+  if (!name) {
+    alert("Masukkan nama tugas terlebih dahulu.");
+    return;
+  }
+
+
+  tasks.push({
+    name: name,
+    time: timeInput.value || "06:45"
+  });
+
+
+  saveTasks();
+  renderTasks();
+  nameInput.value = "";
+}
+
+
+function resetTasks() {
+  if (!confirm("Reset semua checklist hari ini?")) return;
+
+
+  tasks.forEach((_, index) => {
+    delete checks[todayKey() + "-" + index];
+  });
+
+
+  saveChecks();
+  renderTasks();
+}
+
+
+function updateClock() {
+  const now = new Date();
+
+
+  document.getElementById("clock").textContent =
+    now.toLocaleTimeString("id-ID", {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+
+  document.getElementById("today").textContent =
+    now.toLocaleDateString("id-ID", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+}
+
+
+async function enableNotifications() {
+  if (!("Notification" in window)) {
+    alert("Browser ini tidak mendukung notifikasi.");
+    return;
+  }
+
+
+  const permission = await Notification.requestPermission();
+
+
+  document.getElementById("notifyStatus").textContent =
+    permission === "granted"
+      ? "Notifikasi browser sudah diizinkan."
+      : "Notifikasi belum diizinkan.";
+
+
+  if (permission === "granted") {
+    new Notification("Piket4U", {
+      body: "Notifikasi berhasil diaktifkan!"
+    });
+  }
+}
+
+
+function notifyTeam() {
+  const message = document.getElementById("reminderMessage").value
+    || "Jangan lupa tugas piket hari ini!";
+
+
+  if (!("Notification" in window) ||
+      Notification.permission !== "granted") {
+    alert(message + "\n\nAktifkan izin notifikasi untuk notifikasi browser.");
+    return;
+  }
+
+
+  new Notification("🔔 Pengingat Piket4U", {
+    body: message
+  });
+}
+
+
+function setReminder() {
+  const date = document.getElementById("reminderDate").value;
+  const time = document.getElementById("reminderTime").value;
+  const message = document.getElementById("reminderMessage").value.trim();
+
+
+  if (!date || !time || !message) {
+    alert("Lengkapi tanggal, jam, dan pesan pengingat.");
+    return;
+  }
+
+
+  const target = new Date(date + "T" + time + ":00");
+
+
+  if (target <= new Date()) {
+    alert("Pilih waktu pengingat yang masih akan datang.");
+    return;
+  }
+
+
+  reminder = { date, time, message };
+  localStorage.setItem("piketReminder", JSON.stringify(reminder));
+
+
+  lastAlert = "";
+
+
+  document.getElementById("scheduleStatus").textContent =
+    "Pengingat disimpan untuk " + date + " pukul " + time +
+    ". Aplikasi harus tetap terbuka agar pengingat otomatis diperiksa.";
+
+
+  checkReminder();
+}
+
+
+function cancelReminder() {
+  reminder = null;
+  lastAlert = "";
+  localStorage.removeItem("piketReminder");
+
+
+  document.getElementById("scheduleStatus").textContent =
+    "Pengingat dibatalkan.";
+}
+
+
+function checkReminder() {
+  if (!reminder) return;
+
+
+  const now = new Date();
+  const target = new Date(
+    reminder.date + "T" + reminder.time + ":00"
+  );
+
+
+  const key = reminder.date + "-" + reminder.time;
+
+
+  if (now >= target && lastAlert !== key) {
+    lastAlert = key;
+
+
+    if ("Notification" in window &&
+        Notification.permission === "granted") {
+      new Notification("🔔 Piket4U - Waktunya Piket!", {
+        body: reminder.message
+      });
+    } else {
+      alert("Pengingat Piket4U: " + reminder.message);
+    }
+
+
+    document.getElementById("scheduleStatus").textContent =
+      "Pengingat untuk " + reminder.time + " telah dijalankan.";
+  }
+}
+
+
+function init() {
+  document.getElementById("reminderDate").value = todayKey();
+
+
+  if (reminder) {
+    document.getElementById("reminderDate").value = reminder.date;
+    document.getElementById("reminderTime").value = reminder.time;
+    document.getElementById("reminderMessage").value = reminder.message;
+    document.getElementById("scheduleStatus").textContent =
+      "Pengingat tersimpan: " + reminder.date + " pukul " + reminder.time +
+      ". Aplikasi harus terbuka agar pengingat diperiksa.";
+  }
+
+
+  updateClock();
+  renderTasks();
+
+
+  // Periksa pengingat setiap 15 detik selama halaman terbuka.
+  setInterval(checkReminder, 15000);
+  checkReminder();
+}
+
+
+init();
+setInterval(updateClock, 1000);
+</script>
+
+
+</body>
+</html>
